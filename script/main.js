@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const btnMenu = document.querySelector('.menu'),
       menu = document.querySelector('menu'),
       closeBtn = document.querySelector('.close-btn'),
-      menuItems = menu.querySelectorAll('ul>li');
+      menuItems = menu.querySelectorAll('ul>li>a');
 
     const handlerMenu = () => {
       menu.classList.toggle('active-menu');
@@ -84,16 +84,13 @@ window.addEventListener('DOMContentLoaded', function () {
   const animPup = function () {
     const popup = document.querySelector('.popup-content'),
       btnPopup = document.querySelectorAll('.popup-btn'),
-      popupClose = document.querySelector('.popup-close'),
-      width = document.documentElement.clientWidth;
-    console.log(width);
+      popupClose = document.querySelector('.popup-close');
+
     popup.style.top = '0%';
     let count = 0;
     let animInterval;
     let animate = false;
-    if (width < 768) {
-      return;
-    }
+
     const menuUp = function () {
       if (!animate) {
         animInterval = requestAnimationFrame(menuUp);
@@ -124,7 +121,12 @@ window.addEventListener('DOMContentLoaded', function () {
     popupClose.addEventListener('click', resetAnim);
     btnPopup.forEach((elem) => {
       elem.addEventListener('click', () => {
-        animInterval = requestAnimationFrame(menuUp);
+        if (document.documentElement.clientWidth < 768) {
+          popup.style.top = '10%';
+          return;
+        } else {
+          animInterval = requestAnimationFrame(menuUp);
+        }
       });
     });
 
