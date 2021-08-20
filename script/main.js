@@ -40,4 +40,95 @@ window.addEventListener('DOMContentLoaded', function () {
     setInterval(updateClock, 1000);
   }
   countTimer('21 august 2021');
+
+  // меню
+
+  const toogleMenu = () => {
+    const btnMenu = document.querySelector('.menu'),
+      menu = document.querySelector('menu'),
+      closeBtn = document.querySelector('.close-btn'),
+      menuItems = menu.querySelectorAll('ul>li');
+
+    const handlerMenu = () => {
+      menu.classList.toggle('active-menu');
+    };
+    btnMenu.addEventListener('click', handlerMenu);
+    closeBtn.addEventListener('click', handlerMenu);
+    menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
+
+  };
+
+  toogleMenu();
+
+  // popup
+
+  const togglePopUp = () => {
+    const popup = document.querySelector('.popup'),
+      btnPopup = document.querySelectorAll('.popup-btn'),
+      popupClose = document.querySelector('.popup-close');
+
+    btnPopup.forEach((elem) => {
+      elem.addEventListener('click', () => {
+        popup.style.display = 'block';
+      });
+    });
+
+    popupClose.addEventListener('click', () => {
+      popup.style.display = 'none';
+    });
+  };
+  togglePopUp();
+
+  // animation
+
+  const animPup = function () {
+    const popup = document.querySelector('.popup-content'),
+      btnPopup = document.querySelectorAll('.popup-btn'),
+      popupClose = document.querySelector('.popup-close'),
+      width = document.documentElement.clientWidth;
+    console.log(width);
+    popup.style.top = '0%';
+    let count = 0;
+    let animInterval;
+    let animate = false;
+    if (width < 768) {
+      return;
+    }
+    const menuUp = function () {
+      if (!animate) {
+        animInterval = requestAnimationFrame(menuUp);
+        animate = true;
+        count = count + 1;
+        if (count < 20) {
+          popup.style.top = count + '%';
+          setTimeout(menuUp, 10);
+        }
+      } else {
+        cancelAnimationFrame(menuUp);
+        animate = false;
+      }
+    };
+    const resetAnim = function () {
+
+      if (animate) {
+        cancelAnimationFrame(animInterval);
+        popup.style.top = 0;
+        count = 0;
+        animate = false;
+      }
+      else {
+        popup.style.top = 0;
+        count = 0;
+      }
+    };
+    popupClose.addEventListener('click', resetAnim);
+    btnPopup.forEach((elem) => {
+      elem.addEventListener('click', () => {
+        animInterval = requestAnimationFrame(menuUp);
+      });
+    });
+
+  };
+  animPup();
+
 });
