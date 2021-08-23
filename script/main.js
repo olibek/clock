@@ -39,7 +39,7 @@ window.addEventListener('DOMContentLoaded', function () {
     }
     setInterval(updateClock, 1000);
   }
-  countTimer('21 august 2021');
+  countTimer('26 august 2021');
 
   // меню
 
@@ -52,10 +52,19 @@ window.addEventListener('DOMContentLoaded', function () {
     const handlerMenu = () => {
       menu.classList.toggle('active-menu');
     };
-    btnMenu.addEventListener('click', handlerMenu);
-    closeBtn.addEventListener('click', handlerMenu);
-    menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
 
+    document.addEventListener('click', (event) => {
+      let target = event.target;
+      if (target.closest('.menu')) {
+        menu.classList.toggle('active-menu');
+      }
+      else if (target.classList.contains('close-btn')) {
+        menu.classList.toggle('active-menu');
+      }
+      else if (!target.matches('menu')) {
+        menu.classList.toggle('active-menu');
+      }
+    });
   };
 
   toogleMenu();
@@ -64,8 +73,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   const togglePopUp = () => {
     const popup = document.querySelector('.popup'),
-      btnPopup = document.querySelectorAll('.popup-btn'),
-      popupClose = document.querySelector('.popup-close');
+      btnPopup = document.querySelectorAll('.popup-btn');
 
     btnPopup.forEach((elem) => {
       elem.addEventListener('click', () => {
@@ -73,8 +81,18 @@ window.addEventListener('DOMContentLoaded', function () {
       });
     });
 
-    popupClose.addEventListener('click', () => {
-      popup.style.display = 'none';
+
+    popup.addEventListener('click', (event) => {
+      let target = event.target;
+
+      if (target.classList.contains('popup-close')) {
+        popup.style.display = 'none';
+      } else {
+        target = target.closest('.popup-content');
+        if (!target) {
+          popup.style.display = 'none';
+        }
+      }
     });
   };
   togglePopUp();
@@ -132,5 +150,35 @@ window.addEventListener('DOMContentLoaded', function () {
 
   };
   animPup();
+
+  // табы 
+  const tabs = () => {
+    const tabHeader = document.querySelector('.service-header'),
+      tab = tabHeader.querySelectorAll('.service-header-tab'),
+      tabContent = document.querySelectorAll('.service-tab');
+    const toogleTabContent = (index) => {
+      for (let i = 0; i < tabContent.length; i++) {
+        if (index === i) {
+          tab[i].classList.add('active');
+          tabContent[i].classList.remove('d-none');
+        } else {
+          tabContent[i].classList.add('d-none');
+          tab[i].classList.remove('active');
+        }
+      }
+    };
+    tabHeader.addEventListener('click', (event) => {
+      let target = event.target;
+      target = target.closest('.service-header-tab');
+      if (target) {
+        tab.forEach((item, index) => {
+          if (item === target) {
+            toogleTabContent(index);
+          }
+        });
+      }
+    });
+  };
+  tabs();
 
 });
