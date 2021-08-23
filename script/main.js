@@ -53,7 +53,7 @@ window.addEventListener('DOMContentLoaded', function () {
       menu.classList.toggle('active-menu');
     };
 
-    document.addEventListener('click', (event) => {
+    document.body.addEventListener('click', (event) => {
       let target = event.target;
       if (target.closest('.menu')) {
         menu.classList.toggle('active-menu');
@@ -62,7 +62,10 @@ window.addEventListener('DOMContentLoaded', function () {
         menu.classList.toggle('active-menu');
       }
       else if (!target.matches('menu')) {
-        menu.classList.toggle('active-menu');
+        menu.classList.remove('active-menu');
+      }
+      else {
+        return;
       }
     });
   };
@@ -80,7 +83,6 @@ window.addEventListener('DOMContentLoaded', function () {
         popup.style.display = 'block';
       });
     });
-
 
     popup.addEventListener('click', (event) => {
       let target = event.target;
@@ -113,7 +115,7 @@ window.addEventListener('DOMContentLoaded', function () {
       if (!animate) {
         animInterval = requestAnimationFrame(menuUp);
         animate = true;
-        count = count + 1;
+        count++;
         if (count < 20) {
           popup.style.top = count + '%';
           setTimeout(menuUp, 10);
