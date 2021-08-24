@@ -189,21 +189,27 @@ window.addEventListener('DOMContentLoaded', function () {
       interval;
 
     const createDots = () => {
-      let li = document.querySelectorAll('.dot'),
+      let li = [...document.querySelectorAll('.dot')],
         list = document.querySelector('.portfolio-dots');
+
       if (li.length < slide.length) {
+
         let li = document.createElement('li');
         li.classList.add('dot');
         list.appendChild(li);
+
         createDots();
       }
       else {
         return;
       }
+
     };
+
     createDots();
 
-    let dot = document.querySelectorAll('.dot');
+    let dot = [...document.querySelectorAll('.dot')];
+    dot[0].classList.add('dot-active');
 
     const prevSlide = (elem, index, strClass) => {
       elem[index].classList.remove(strClass);
