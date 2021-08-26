@@ -369,7 +369,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   };
 
-  // valid();
+  valid();
 
   //калькулятор 
 
@@ -406,7 +406,7 @@ window.addEventListener('DOMContentLoaded', function () {
     };
 
 
-    calcBlock.addEventListener('change', (event) => {
+    calcBlock.addEventListener('input', (event) => {
       let target = event.target;
       if (target.matches('select') || target.matches('input')) {
         countSum();
