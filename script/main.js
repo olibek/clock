@@ -353,7 +353,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
         let target = event.target;
         if (target === target.closest('#form2-name')) {
-          target.value = target.value.replace(/\s&{2,}/g, '').split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
+          target.value = target.value.replace(/\s+(?![^\d\s])/g, '').split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
 
         } else if (target === target.closest('#form2-message')) {
           target.value = target.value.replace(/[\s]|[\s$]/g, '');
