@@ -290,7 +290,20 @@ window.addEventListener('DOMContentLoaded', function () {
   slider();
 
   //валидация 
-
+  const check = function (item) {
+    if (item.matches('[placeholder="Ваше имя"]')) {
+      item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
+    }
+    if (item.matches('[placeholder="Номер телефона"]')) {
+      item.value = item.value.replace(/^\s|[А-Яа-яA-Za-z?@!.~'_*"/^&±,%#%+=:$?|;]/g, '');
+    }
+    if (item.matches('[placeholder="E-mail"]')) {
+      item.value = item.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
+    }
+    if (item.matches('[placeholder="Ваше сообщение"]')) {
+      item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
+    }
+  };
   const valid = () => {
 
     //   // замена иконок команды
@@ -330,18 +343,33 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // валидация обратной связи
 
+
+    // if (place === 'words') {
+    //   item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
+    // }
+    // if (place === 'numbers') {
+    //   item.value = item.value.replace(/^\s|[А-Яа-яA-Za-z?@!.~'_*"/^&±,%#%+=:$?|;]/g, '');
+    // }
+    // if (place === 'email') {
+    //   item.value = item.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
+    // }
+
+
+
+
+
     const rusWord = function () {
       document.addEventListener('input', (event) => {
 
         let target = event.target;
         if (target.closest('#form2-name')) {
-          target.value = target.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
+          check(target);
         } if (target.closest('#form2-message')) {
-          target.value = target.value.replace(/^\s|[.`"!/,*()%#%-+=:'$@~;\w]/g, '');
+          check(target);
         } if (target.closest('#form2-email')) {
-          target.value = target.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
+          check(target);
         } if (target.closest('#form2-phone')) {
-          target.value = target.value.replace(/^\s|[А-Яа-яA-Za-z?@!.~'_*"/^&±,%#%+=:$?|;]/g, '');
+          check(target);
         } else {
           return;
         }
@@ -351,14 +379,16 @@ window.addEventListener('DOMContentLoaded', function () {
 
         let target = event.target;
         if (target.closest('#form2-name')) {
-          target.value = target.value.replace(/\s+(?![^\d\s])/g, '')
-            .split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
+          check(target);
+          if (target.value) {
+            target.value = target.value.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
+          }
         } if (target.closest('#form2-message')) {
-          target.value = target.value.replace(/\s+(?![^\d\s])/g, '');
+          check(target);
         } if (target.closest('#form2-email')) {
-          target.value = target.value.replace(/\s+/g, ' ');
+          check(target);
         } if (target.closest('#form2-phone')) {
-          target.value = target.value.replace(/\s+/g, ' ');
+          check(target);
         } else {
           return;
         }
@@ -425,47 +455,97 @@ window.addEventListener('DOMContentLoaded', function () {
       loadMessage = 'Загрузка...',
       succesMessage = 'Спасибо! мы скоро с вами свяжемся';
 
-    let form = document.forms;
-    for (let i = 0; i < form.length; i++) {
-      let name = form[i].getElementsByTagName('input');
+    const statusMessage = document.createElement('div');
+    statusMessage.style.cssText = 'font-size: 2rem;';
 
+    document.addEventListener('submit', (event) => {
+      event.preventDefault();
+      let target = event.target;
+      if (target.closest('#form1')) {
+        if (target.closest('#form2-name')) {
+          check(target);
+        } if (target.closest('#form2-message')) {
+          check(target);
+        } if (target.closest('#form2-email')) {
+          check(target);
+        } if (target.closest('#form2-phone')) {
+          check(target);
+        } else {
+          return;
+        }
+        formFunc(target);
+      } else if (target.closest('#form2')) {
+        if (target.closest('#form2-name')) {
+          check(target);
+        } if (target.closest('#form2-message')) {
+          check(target);
+        } if (target.closest('#form2-email')) {
+          check(target);
+        } if (target.closest('#form2-phone')) {
+          check(target);
+        } else {
+          return;
+        }
+        formFunc(target);
+      } else if (target.closest('#form3')) {
+        if (target.closest('#form2-name')) {
+          check(target);
+        } if (target.closest('#form2-message')) {
+          check(target);
+        } if (target.closest('#form2-email')) {
+          check(target);
+        } if (target.closest('#form2-phone')) {
+          check(target);
+        } else {
+          return;
+        }
+        formFunc(target);
 
-      const statusMessage = document.createElement('div');
-      statusMessage.style.cssText = 'font-size: 2rem;';
+      }
+    });
+    const formFunc = (elem) => {
 
-      form[i].addEventListener('submit', (event) => {
-        event.preventDefault();
-        form[i].appendChild(statusMessage);
-
-        const request = new XMLHttpRequest();
-        request.addEventListener('readystatechange', () => {
-          statusMessage.textContent = loadMessage;
-
-          if (request.readyState !== 4) {
-            return;
-          }
-          if (request.status === 200) {
-            statusMessage.textContent = succesMessage;
-            for (let k = 0; k < name.length; k++) {
-              name[k].value = '';
-            }
-          } else {
-            statusMessage.textContent = errorMessage;
-          }
-        });
-        request.open('POST', './server.php');
-        request.setRequestHeader('Content-Type', 'application/json');
-        const formData = new FormData(form[i]);
-        let body = {};
-
-        formData.forEach((val, key) => {
-          body[key] = val;
-        });
-
-        request.send(JSON.stringify(body));
-
+      elem.appendChild(statusMessage);
+      statusMessage.textContent = loadMessage;
+      const formData = new FormData(elem);
+      let body = {};
+      formData.forEach((val, key) => {
+        body[key] = val;
       });
-    }
+
+      postData(body,
+        () => {
+          statusMessage.textContent = succesMessage;
+          for (let k = 0; k < elem.length; k++) {
+            elem[k].value = '';
+          }
+        },
+        (error) => {
+          statusMessage.textContent = errorMessage;
+        }
+      );
+
+    };
+
+    const postData = (body, outputData, errorData) => {
+      const request = new XMLHttpRequest();
+      request.addEventListener('readystatechange', () => {
+        if (request.readyState !== 4) {
+          return;
+        }
+        if (request.status === 200) {
+          outputData();
+        } else {
+          errorData(request.status);
+        }
+      });
+
+      request.open('POST', './server.php');
+      request.setRequestHeader('Content-Type', 'application/json');
+
+      request.send(JSON.stringify(body));
+    };
+
   };
 
   sendForm();
