@@ -304,6 +304,7 @@ window.addEventListener('DOMContentLoaded', function () {
       item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
     }
   };
+
   const valid = () => {
 
     //   // замена иконок команды
@@ -311,19 +312,16 @@ window.addEventListener('DOMContentLoaded', function () {
     const comandImg = document.querySelectorAll('.command__photo');
 
     comandImg.forEach((elem) => {
-      let imgDef = elem.getAttribute('src');
       elem.addEventListener('mouseover', (event) => {
         let target = event.target;
         if (target) {
-          event.target.src = event.target.dataset.img;
-        } else if (!target) {
-          event.target.src = imgDef;
+          [event.target.src, event.target.dataset.img] = [event.target.dataset.img, event.target.src];
         }
       });
       elem.addEventListener('mouseout', (event) => {
         let target = event.target;
         if (target) {
-          event.target.src = imgDef;
+          [event.target.dataset.img, event.target.src] = [event.target.src, event.target.dataset.img];
         }
       });
     });
@@ -347,17 +345,12 @@ window.addEventListener('DOMContentLoaded', function () {
       document.addEventListener('input', (event) => {
 
         let target = event.target;
-        if (target.closest('#form2-name')) {
-          check(target);
-        } if (target.closest('#form2-message')) {
-          check(target);
-        } if (target.closest('#form2-email')) {
-          check(target);
-        } if (target.closest('#form2-phone')) {
+        if (target.closest('#form2')) {
           check(target);
         } else {
           return;
         }
+
       });
 
       document.addEventListener('blur', (event) => {
@@ -443,51 +436,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const statusMessage = document.createElement('div');
     statusMessage.style.cssText = 'font-size: 2rem;';
 
-    document.addEventListener('submit', (event) => {
-      event.preventDefault();
-      let target = event.target;
-      if (target.closest('#form1')) {
-        if (target.closest('#form2-name')) {
-          check(target);
-        } if (target.closest('#form2-message')) {
-          check(target);
-        } if (target.closest('#form2-email')) {
-          check(target);
-        } if (target.closest('#form2-phone')) {
-          check(target);
-        } else {
-          return;
-        }
-        formFunc(target);
-      } else if (target.closest('#form2')) {
-        if (target.closest('#form2-name')) {
-          check(target);
-        } if (target.closest('#form2-message')) {
-          check(target);
-        } if (target.closest('#form2-email')) {
-          check(target);
-        } if (target.closest('#form2-phone')) {
-          check(target);
-        } else {
-          return;
-        }
-        formFunc(target);
-      } else if (target.closest('#form3')) {
-        if (target.closest('#form2-name')) {
-          check(target);
-        } if (target.closest('#form2-message')) {
-          check(target);
-        } if (target.closest('#form2-email')) {
-          check(target);
-        } if (target.closest('#form2-phone')) {
-          check(target);
-        } else {
-          return;
-        }
-        formFunc(target);
 
-      }
-    });
     const formFunc = (elem) => {
 
       elem.appendChild(statusMessage);
@@ -511,6 +460,29 @@ window.addEventListener('DOMContentLoaded', function () {
       );
 
     };
+
+    document.addEventListener('submit', (event) => {
+      event.preventDefault();
+      let target = event.target;
+      if (target.closest('#form1')) {
+        formFunc(target);
+      } if (target.closest('#form2')) {
+        formFunc(target);
+      } if (target.closest('#form3')) {
+        formFunc(target);
+      }
+    });
+    document.addEventListener('input', (event) => {
+
+      let target = event.target;
+      if (target.closest('#form1')) {
+        check(target);
+      } if (target.closest('#form2')) {
+        check(target);
+      } if (target.closest('#form3')) {
+        check(target);
+      }
+    });
 
     const postData = (body, outputData, errorData) => {
       const request = new XMLHttpRequest();
