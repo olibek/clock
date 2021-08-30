@@ -343,21 +343,6 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // валидация обратной связи
 
-
-    // if (place === 'words') {
-    //   item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
-    // }
-    // if (place === 'numbers') {
-    //   item.value = item.value.replace(/^\s|[А-Яа-яA-Za-z?@!.~'_*"/^&±,%#%+=:$?|;]/g, '');
-    // }
-    // if (place === 'email') {
-    //   item.value = item.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
-    // }
-
-
-
-
-
     const rusWord = function () {
       document.addEventListener('input', (event) => {
 
