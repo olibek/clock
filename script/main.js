@@ -291,86 +291,86 @@ window.addEventListener('DOMContentLoaded', function () {
 
   //валидация 
 
-  // const valid = () => {
+  const valid = () => {
 
-  //   // замена иконок команды
+    //   // замена иконок команды
 
-  //   const comandImg = document.querySelectorAll('.command__photo');
+    const comandImg = document.querySelectorAll('.command__photo');
 
-  //   comandImg.forEach((elem) => {
-  //     let imgDef = elem.getAttribute('src');
-  //     elem.addEventListener('mouseover', (event) => {
-  //       let target = event.target;
-  //       if (target) {
-  //         event.target.src = event.target.dataset.img;
-  //       } else if (!target) {
-  //         event.target.src = imgDef;
-  //       }
-  //     });
-  //     elem.addEventListener('mouseout', (event) => {
-  //       let target = event.target;
-  //       if (target) {
-  //         event.target.src = imgDef;
-  //       }
-  //     });
-  //   });
+    comandImg.forEach((elem) => {
+      let imgDef = elem.getAttribute('src');
+      elem.addEventListener('mouseover', (event) => {
+        let target = event.target;
+        if (target) {
+          event.target.src = event.target.dataset.img;
+        } else if (!target) {
+          event.target.src = imgDef;
+        }
+      });
+      elem.addEventListener('mouseout', (event) => {
+        let target = event.target;
+        if (target) {
+          event.target.src = imgDef;
+        }
+      });
+    });
 
-  //   //валидция калькулятора
+    //валидция калькулятора
 
-  //   const inputNumb = function () {
-  //     const calcInput = document.querySelectorAll('input.calc-item');
-  //     for (let i = 0; i < Object.keys(calcInput).length; i++) {
-  //       calcInput[i].addEventListener('input', function () {
-  //         this.value = this.value.replace(/[^\d]/g, '');
-  //       });
-  //     }
-  //   };
+    const inputNumb = function () {
+      const calcInput = document.querySelectorAll('input.calc-item');
+      for (let i = 0; i < Object.keys(calcInput).length; i++) {
+        calcInput[i].addEventListener('input', function () {
+          this.value = this.value.replace(/[^\d]/g, '');
+        });
+      }
+    };
 
-  //   inputNumb();
+    inputNumb();
 
-  //   // валидация обратной связи
+    // валидация обратной связи
 
-  //   const rusWord = function () {
-  //     document.addEventListener('input', (event) => {
+    const rusWord = function () {
+      document.addEventListener('input', (event) => {
 
-  //       let target = event.target;
-  //       if (target.closest('#form2-name')) {
-  //         target.value = target.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
-  //       } if (target.closest('#form2-message')) {
-  //         target.value = target.value.replace(/^\s|[.`"!/,*()%#%-+=:'$@~;\w]/g, '');
-  //       } if (target.closest('#form2-email')) {
-  //         target.value = target.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
-  //       } if (target.closest('#form2-phone')) {
-  //         target.value = target.value.replace(/^\s|[А-Яа-яA-Za-z?@!.~'_*"/^&±,%#%+=:$?|;]/g, '');
-  //       } else {
-  //         return;
-  //       }
-  //     });
+        let target = event.target;
+        if (target.closest('#form2-name')) {
+          target.value = target.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
+        } if (target.closest('#form2-message')) {
+          target.value = target.value.replace(/^\s|[.`"!/,*()%#%-+=:'$@~;\w]/g, '');
+        } if (target.closest('#form2-email')) {
+          target.value = target.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
+        } if (target.closest('#form2-phone')) {
+          target.value = target.value.replace(/^\s|[А-Яа-яA-Za-z?@!.~'_*"/^&±,%#%+=:$?|;]/g, '');
+        } else {
+          return;
+        }
+      });
 
-  //     document.addEventListener('blur', (event) => {
+      document.addEventListener('blur', (event) => {
 
-  //       let target = event.target;
-  //       if (target.closest('#form2-name')) {
-  //         target.value = target.value.replace(/\s+(?![^\d\s])/g, '')
-  //           .split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
-  //       } if (target.closest('#form2-message')) {
-  //         target.value = target.value.replace(/\s+(?![^\d\s])/g, '');
-  //       } if (target.closest('#form2-email')) {
-  //         target.value = target.value.replace(/\s+/g, ' ');
-  //       } if (target.closest('#form2-phone')) {
-  //         target.value = target.value.replace(/\s+/g, ' ');
-  //       } else {
-  //         return;
-  //       }
-  //     }, true);
+        let target = event.target;
+        if (target.closest('#form2-name')) {
+          target.value = target.value.replace(/\s+(?![^\d\s])/g, '')
+            .split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
+        } if (target.closest('#form2-message')) {
+          target.value = target.value.replace(/\s+(?![^\d\s])/g, '');
+        } if (target.closest('#form2-email')) {
+          target.value = target.value.replace(/\s+/g, ' ');
+        } if (target.closest('#form2-phone')) {
+          target.value = target.value.replace(/\s+/g, ' ');
+        } else {
+          return;
+        }
+      }, true);
 
-  //   };
+    };
 
-  //   rusWord();
+    rusWord();
 
-  // };
+  };
 
-  // valid();
+  valid();
 
   //калькулятор 
 
