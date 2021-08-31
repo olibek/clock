@@ -297,6 +297,9 @@ window.addEventListener('DOMContentLoaded', function () {
     if (item.matches('[placeholder="Номер телефона"]')) {
       item.value = item.value.replace(/^\s|[А-Яа-яA-Za-z?@!.~'_*"/^&±,%#%+=:$?|;]/g, '');
     }
+    if (item.matches('[placeholder="Ваш номер телефона"]')) {
+      item.value = item.value.replace(/^\s|[А-Яа-яA-Za-z?@!.~'_*"/^&±,%#%+=:$?|;]/g, '');
+    }
     if (item.matches('[placeholder="E-mail"]')) {
       item.value = item.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
     }
@@ -305,6 +308,9 @@ window.addEventListener('DOMContentLoaded', function () {
     }
     if (item.matches('[placeholder="Ваше сообщение"]')) {
       item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
+    }
+    else {
+      return;
     }
   };
 
@@ -348,24 +354,17 @@ window.addEventListener('DOMContentLoaded', function () {
       document.body.addEventListener('input', (event) => {
 
         let target = event.target;
-        if (target.closest('#form2')) {
-          check(target);
-        } else {
-          return;
-        }
-
+        check(target);
       });
 
       document.body.addEventListener('blur', (event) => {
 
         let target = event.target;
-        if (target.closest('#form2-name')) {
-          check(target);
+        check(target);
+        if (target.matches('[placeholder="Ваше имя"]')) {
           if (target.value) {
             target.value = target.value.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
           }
-        } if (target.closest('#form2')) {
-          check(target);
         } else {
           return;
         }
@@ -489,25 +488,13 @@ window.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('submit', (event) => {
       event.preventDefault();
       let target = event.target;
-      if (target.closest('#form1')) {
-        formFunc(target);
-      } if (target.closest('#form2')) {
-        formFunc(target);
-      } if (target.closest('#form3')) {
-        formFunc(target);
-      }
+      formFunc(target);
     });
 
     //валидация
     document.addEventListener('input', (event) => {
       let target = event.target;
-      if (target.closest('#form1')) {
-        check(target);
-      } if (target.closest('#form2')) {
-        check(target);
-      } if (target.closest('#form3')) {
-        check(target);
-      }
+      check(target);
     });
 
   };
