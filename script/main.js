@@ -448,40 +448,44 @@ window.addEventListener('DOMContentLoaded', function () {
 
       // функция для обращения к серверу
 
-      const postData = (body, outputData, errorData) => {
-        const request = new XMLHttpRequest();
-        request.addEventListener('readystatechange', () => {
-          if (request.readyState !== 4) {
-            return;
-          }
-          if (request.status === 200) {
-            outputData();
-          } else {
-            errorData(request.status);
-          }
+      const postData = (body) => {
+        return new Promise((resolve, reject) => {
+          const request = new XMLHttpRequest();
+          request.open('POST', './server.php');
+          request.setRequestHeader('Content-Type', 'application/json');
+          request.addEventListener('readystatechange', () => {
+            if (request.readyState !== 4) {
+              return;
+            }
+            if (request.status === 200) {
+              resolve();
+            } else {
+              reject(request.status);
+            }
+          });
+          request.send(JSON.stringify(body));
         });
-
-        request.open('POST', './server.php');
-        request.setRequestHeader('Content-Type', 'application/json');
-
-        request.send(JSON.stringify(body));
       };
-      // вызов функции с параметрами
 
-      postData(body,
-        () => {
-          statusMessage.textContent = succesMessage;
-          for (let k = 0; k < elem.length; k++) {
-            elem[k].value = '';
-          }
-        },
-        (error) => {
-          statusMessage.textContent = errorMessage;
+      const outputData = () => {
+        statusMessage.textContent = succesMessage;
+        for (let k = 0; k < elem.length; k++) {
+          elem[k].value = '';
         }
-      );
+      };
+
+      const errorData = (error) => {
+        statusMessage.textContent = errorMessage;
+      };
+      postData(body)
+        .then(outputData)
+        .catch(errorData);
+
+
+      // получение данных с формы
+
 
     };
-
     document.addEventListener('submit', (event) => {
       event.preventDefault();
       let target = event.target;
@@ -493,8 +497,9 @@ window.addEventListener('DOMContentLoaded', function () {
         formFunc(target);
       }
     });
-    document.addEventListener('input', (event) => {
 
+    //валидация
+    document.addEventListener('input', (event) => {
       let target = event.target;
       if (target.closest('#form1')) {
         check(target);
@@ -505,9 +510,6 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-
-
   };
-
   sendForm();
 });
