@@ -300,6 +300,9 @@ window.addEventListener('DOMContentLoaded', function () {
     if (item.matches('[placeholder="E-mail"]')) {
       item.value = item.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
     }
+    if (item.matches('[placeholder="Ваш E-mail"]')) {
+      item.value = item.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
+    }
     if (item.matches('[placeholder="Ваше сообщение"]')) {
       item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
     }
@@ -342,7 +345,7 @@ window.addEventListener('DOMContentLoaded', function () {
     // валидация обратной связи
 
     const rusWord = function () {
-      document.addEventListener('input', (event) => {
+      document.body.addEventListener('input', (event) => {
 
         let target = event.target;
         if (target.closest('#form2')) {
@@ -353,7 +356,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
       });
 
-      document.addEventListener('blur', (event) => {
+      document.body.addEventListener('blur', (event) => {
 
         let target = event.target;
         if (target.closest('#form2-name')) {
@@ -361,11 +364,7 @@ window.addEventListener('DOMContentLoaded', function () {
           if (target.value) {
             target.value = target.value.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
           }
-        } if (target.closest('#form2-message')) {
-          check(target);
-        } if (target.closest('#form2-email')) {
-          check(target);
-        } if (target.closest('#form2-phone')) {
+        } if (target.closest('#form2')) {
           check(target);
         } else {
           return;
@@ -447,6 +446,28 @@ window.addEventListener('DOMContentLoaded', function () {
         body[key] = val;
       });
 
+      // функция для обращения к серверу
+
+      const postData = (body, outputData, errorData) => {
+        const request = new XMLHttpRequest();
+        request.addEventListener('readystatechange', () => {
+          if (request.readyState !== 4) {
+            return;
+          }
+          if (request.status === 200) {
+            outputData();
+          } else {
+            errorData(request.status);
+          }
+        });
+
+        request.open('POST', './server.php');
+        request.setRequestHeader('Content-Type', 'application/json');
+
+        request.send(JSON.stringify(body));
+      };
+      // вызов функции с параметрами
+
       postData(body,
         () => {
           statusMessage.textContent = succesMessage;
@@ -484,24 +505,7 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    const postData = (body, outputData, errorData) => {
-      const request = new XMLHttpRequest();
-      request.addEventListener('readystatechange', () => {
-        if (request.readyState !== 4) {
-          return;
-        }
-        if (request.status === 200) {
-          outputData();
-        } else {
-          errorData(request.status);
-        }
-      });
 
-      request.open('POST', './server.php');
-      request.setRequestHeader('Content-Type', 'application/json');
-
-      request.send(JSON.stringify(body));
-    };
 
   };
 
