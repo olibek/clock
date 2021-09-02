@@ -40,7 +40,6 @@ window.addEventListener('DOMContentLoaded', function () {
   countTimer('31 august 2021');
 
   // меню
-
   const toogleMenu = () => {
     const menu = document.querySelector('menu');
 
@@ -67,7 +66,6 @@ window.addEventListener('DOMContentLoaded', function () {
   toogleMenu();
 
   // popup
-
   const togglePopUp = () => {
     const popup = document.querySelector('.popup');
 
@@ -89,7 +87,6 @@ window.addEventListener('DOMContentLoaded', function () {
   togglePopUp();
 
   // animation
-
   const animPup = function () {
     const popup = document.querySelector('.popup-content');
 
@@ -179,7 +176,6 @@ window.addEventListener('DOMContentLoaded', function () {
   tabs();
 
   // слайлер 
-
   const slider = () => {
     const slide = document.querySelectorAll('.portfolio-item'),
       btn = document.querySelectorAll('.portfolio-btn'),
@@ -375,11 +371,9 @@ window.addEventListener('DOMContentLoaded', function () {
     rusWord();
 
   };
-
   valid();
 
   //калькулятор 
-
   const calc = (price = 100) => {
     const calcBlock = document.querySelector('.calc-block'),
       calcType = document.querySelector('.calc-type'),
@@ -421,11 +415,9 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 
   };
-
   calc(100);
 
   // отправка ajax-form
-
   const sendForm = () => {
     const errorMessage = 'Что то пошло не так...',
       loadMessage = 'Загрузка...',
