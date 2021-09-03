@@ -1,0 +1,31 @@
+{
+  "name": "time",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.prod.config.js",
+    "start": "webpack-dev-server --mode development --config webpack.dev.config.js --open",
+    "dev": "webpack  --config webpack.dev.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olibek/clock.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olibek/clock/issues"
+  },
+  "homepage": "https://github.com/olibek/clock#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.15.4",
+    "@babel/preset-env": "^7.15.4",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.51.2",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.1.0"
+  },
+  "description": ""
+}
