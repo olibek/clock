@@ -1,4 +1,7 @@
 const calc = (price = 100) => {
+
+  check();
+
   const calcBlock = document.querySelector('.calc-block'),
     calcType = document.querySelector('.calc-type'),
     calcSquare = document.querySelector('.calc-square'),

@@ -1,6 +1,7 @@
 'use strict';
 
 //импорт файлов
+import check from './modules/check';
 import countTimer from './modules/countTimer';
 import toogleMenu from './modules/toogleMenu';
 import togglePopUp from './modules/togglePopUp';
@@ -10,7 +11,6 @@ import slider from './modules/slider';
 import valid from './modules/valid';
 import calc from './modules/calc';
 import sendForm from './modules/sendForm';
-
 
 // таймер 
 countTimer('5 september 2021');

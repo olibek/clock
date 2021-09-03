@@ -1,4 +1,3 @@
-
 const check = function (item) {
   if (item.matches('[placeholder="Ваше имя"]')) {
     item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
@@ -22,5 +21,7 @@ const check = function (item) {
     return;
   }
 };
+
+console.log(111);
 
 export default check;
