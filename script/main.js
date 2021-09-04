@@ -304,13 +304,13 @@ window.addEventListener('DOMContentLoaded', function () {
         if (target) {
           event.target.src = event.target.dataset.img;
         } else if (!target) {
-          event.target.src = imgDef;
+          event.target.src = elem.getAttribute('src');
         }
       });
       elem.addEventListener('mouseout', (event) => {
         let target = event.target;
         if (target) {
-          event.target.src = imgDef;
+          event.target.src = elem.getAttribute('src');
         }
       });
     });
@@ -336,11 +336,11 @@ window.addEventListener('DOMContentLoaded', function () {
         let target = event.target;
         if (target.closest('#form2-name')) {
           target.value = target.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
-        } else if (target.closest('#form2-message')) {
+        } if (target.closest('#form2-message')) {
           target.value = target.value.replace(/^\s|[.`"!/,*()%#%-+=:'$@~;\w]/g, '');
-        } else if (target.closest('#form2-email')) {
+        } if (target.closest('#form2-email')) {
           target.value = target.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
-        } else if (target.closest('#form2-phone')) {
+        } if (target.closest('#form2-phone')) {
           target.value = target.value.replace(/^\s|[А-Яа-яA-Za-z?@!.~'_*"/^&±,%#%+=:$?|;]/g, '');
         } else {
           return;
@@ -351,12 +351,13 @@ window.addEventListener('DOMContentLoaded', function () {
 
         let target = event.target;
         if (target.closest('#form2-name')) {
-          target.value = target.value.replace(/\s+(?![^\d\s])/g, '').split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
-        } else if (target.closest('#form2-message')) {
+          target.value = target.value.replace(/\s+(?![^\d\s])/g, '')
+            .split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
+        } if (target.closest('#form2-message')) {
           target.value = target.value.replace(/\s+(?![^\d\s])/g, '');
-        } else if (target.closest('#form2-email')) {
+        } if (target.closest('#form2-email')) {
           target.value = target.value.replace(/\s+/g, ' ');
-        } else if (target.closest('#form2-phone')) {
+        } if (target.closest('#form2-phone')) {
           target.value = target.value.replace(/\s+/g, ' ');
         } else {
           return;
@@ -364,7 +365,6 @@ window.addEventListener('DOMContentLoaded', function () {
       }, true);
 
     };
-
     rusWord();
 
   };
