@@ -1,7 +1,6 @@
 'use strict';
 
 //импорт файлов
-// import check from './modules/check';
 import countTimer from './modules/countTimer';
 import toogleMenu from './modules/toogleMenu';
 import togglePopUp from './modules/togglePopUp';

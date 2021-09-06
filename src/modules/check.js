@@ -1,6 +1,6 @@
 const check = function (item) {
   if (item.matches('[placeholder="Ваше имя"]')) {
-    item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
+    item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]{2}/g, '');
   }
   if (item.matches('[placeholder="Номер телефона"]')) {
     item.value = item.value.replace(/^\s|[А-Яа-яA-Za-z?@!.~'_*"/^&±,%#%+=:$?|;]/g, '');

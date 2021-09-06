@@ -3,6 +3,7 @@ const sendForm = () => {
   const check = function (item) {
     if (item.matches('[placeholder="Ваше имя"]')) {
       item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
+      item.value = item.value.replace(/ {2,}/g, ' ');
     }
     if (item.matches('[placeholder="Номер телефона"]')) {
       item.value = item.value.replace(/^\s|[А-Яа-яA-Za-z?@!.~'_*"/^&±,%#%+=:$?|;]/g, '');
@@ -31,7 +32,9 @@ const sendForm = () => {
   const statusMessage = document.createElement('div');
   statusMessage.style.cssText = 'font-size: 2rem;';
 
-
+  const clearFun = () => {
+    statusMessage.remove();
+  };
   const formFunc = (elem) => {
 
     elem.appendChild(statusMessage);
@@ -57,13 +60,16 @@ const sendForm = () => {
 
     const errorData = (error) => {
       statusMessage.textContent = errorMessage;
+      setTimeout(clearFun, 3000);
     };
     postData(body)
       .then((response) => {
         if (response.status !== 200) {
           throw new Error('status network not 200');
         }
+
         statusMessage.textContent = succesMessage;
+        setTimeout(clearFun, 3000);
         for (let k = 0; k < elem.length; k++) {
           elem[k].value = '';
         }
