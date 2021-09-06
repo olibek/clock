@@ -4,9 +4,9 @@ const valid = () => {
     if (item.matches('[placeholder="Ваше имя"]')) {
       item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]{2}$/g, '');
     }
-    if (item.matches('[placeholder="Номер телефона"]')) {
-      item.value = item.value.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/g, '+$1 ($2) $3-$4-$5')
-    }
+    // if (item.matches('[placeholder="Номер телефона"]')) {
+    //   item.value = item.value.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/g, '+$1 ($2) $3-$4-$5');
+    // }
 
     if (item.matches('[placeholder="Ваш номер телефона"]')) {
       item.value = item.value.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/g, '+$1 ($2) $3-$4-$5');
@@ -27,7 +27,16 @@ const valid = () => {
     }
   };
 
+  let element = document.querySelector('[placeholder = "Номер телефона"]');
+  let element1 = document.querySelector('[placeholder = "Ваш номер телефона"]');
 
+  let maskOptions = {
+    mask: '+7(000)000-00-00',
+    lazy: false
+  };
+
+  const mask = new IMask(element, maskOptions);
+  const mask1 = new IMask(element1, maskOptions);
 
   //   // замена иконок команды
 
