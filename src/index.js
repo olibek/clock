@@ -12,7 +12,7 @@ import calc from './modules/calc';
 import sendForm from './modules/sendForm';
 
 // таймер 
-countTimer('6 september 2021');
+countTimer('9 september 2021');
 
 // меню
 toogleMenu();
