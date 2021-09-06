@@ -2,20 +2,22 @@ const sendForm = () => {
 
   const check = function (item) {
     if (item.matches('[placeholder="Ваше имя"]')) {
-      item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
-      item.value = item.value.replace(/ {2,}/g, ' ');
+      item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]{2}$/g, '');
     }
     if (item.matches('[placeholder="Номер телефона"]')) {
-      item.value = item.value.replace(/^\s|[А-Яа-яA-Za-z?@!.~'_*"/^&±,%#%+=:$?|;]/g, '');
+      item.value = item.value.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/g, '+$1 ($2) $3-$4-$5');
     }
+
     if (item.matches('[placeholder="Ваш номер телефона"]')) {
-      item.value = item.value.replace(/^\s|[А-Яа-яA-Za-z?@!.~'_*"/^&±,%#%+=:$?|;]/g, '');
+      item.value = item.value.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/g, '+$1 ($2) $3-$4-$5');
     }
     if (item.matches('[placeholder="E-mail"]')) {
       item.value = item.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
+      item.setAttribute('required');
     }
     if (item.matches('[placeholder="Ваш E-mail"]')) {
       item.value = item.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
+      item.setAttribute('required');
     }
     if (item.matches('[placeholder="Ваше сообщение"]')) {
       item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
