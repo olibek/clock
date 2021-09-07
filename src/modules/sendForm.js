@@ -5,12 +5,6 @@ const sendForm = () => {
     if (item.matches('[placeholder="Ваше имя"]')) {
       item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]{2}$/g, '');
     }
-    if (item.matches('[placeholder="E-mail"]')) {
-      item.value = item.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
-    }
-    if (item.matches('[placeholder="Ваш E-mail"]')) {
-      item.value = item.value.replace(/^\s|[А-Яа-я0-9`"/^&±,()%#%+=:$?|;]/g, '');
-    }
     if (item.matches('[placeholder="Ваше сообщение"]')) {
       item.value = item.value.replace(/^\s|[.`"!/,?^*()#%-+=:'$@~;\w]/g, '');
     }
@@ -19,16 +13,18 @@ const sendForm = () => {
     }
   };
 
-  let element = document.querySelectorAll('[placeholder = "Номер телефона"]')[1];
-  let element1 = document.querySelector('[placeholder = "Ваш номер телефона"]');
+  let tel = document.querySelectorAll('[type="tel"]');
 
   let maskOptions = {
     mask: '+7(000)000-00-00',
     lazy: false
   };
 
-  const mask = new IMask(element, maskOptions);
-  const mask1 = new IMask(element1, maskOptions);
+  [...tel].forEach(elem => {
+    let mask = new IMask(elem, maskOptions);
+  });
+
+  console.log(tel[1].value);
 
   const errorMessage = 'Что то пошло не так...',
     loadMessage = 'Загрузка...',
@@ -40,6 +36,11 @@ const sendForm = () => {
   const clearFun = () => {
     statusMessage.remove();
   };
+
+  const redClear = (element) => {
+    element.style.cssText = 'border: none';
+  };
+
   const formFunc = (elem) => {
 
     elem.appendChild(statusMessage);
@@ -60,15 +61,16 @@ const sendForm = () => {
         },
         body: JSON.stringify(body)
       });
-
     };
 
     const errorData = (error) => {
       statusMessage.textContent = errorMessage;
       setTimeout(clearFun, 3000);
     };
+
     postData(body)
       .then((response) => {
+
         if (response.status !== 200) {
           throw new Error('status network not 200');
         }
@@ -81,15 +83,39 @@ const sendForm = () => {
       })
       .catch(errorData);
 
-
     // получение данных с формы
-
 
   };
   document.addEventListener('submit', (event) => {
     event.preventDefault();
     let target = event.target;
-    formFunc(target);
+    if (target.getAttribute('id') === 'form1') {
+
+      if (tel[0].value.match(/_/g)) {
+        tel[0].style.cssText += 'border: 2px solid red';
+      } else {
+        tel[0].style.cssText += 'border: none';
+        formFunc(target);
+      }
+    }
+    if (target.getAttribute('id') === 'form2') {
+
+      if (tel[1].value.match(/_/g)) {
+        tel[1].style.cssText += 'border: 2px solid red';
+      } else {
+        tel[1].style.cssText += 'border: none';
+        formFunc(target);
+      }
+    }
+    if (target.getAttribute('id') === 'form3') {
+
+      if (tel[2].value.match(/_/g)) {
+        tel[2].style.cssText += 'border: 2px solid red';
+      } else {
+        tel[2].style.cssText += 'border: none';
+        formFunc(target);
+      }
+    }
   });
 
   //валидация
@@ -99,5 +125,7 @@ const sendForm = () => {
   });
 
 };
+
+
 
 export default sendForm;
